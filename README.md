@@ -1,34 +1,34 @@
 # ElectraX
 
-Premium Electronics & Gaming E-Commerce Website built using React and Vite.
-
-## Overview
-
-ElectraX is a modern electronics e-commerce website featuring gaming laptops, keyboards, headsets, controllers, and accessories. The project focuses on creating a premium UI/UX experience using React.
+Premium Electronics E-Commerce Website built using React and Vite.
 
 ## Features
 
-* Modern Responsive UI
-* Hero Section
-* Product Categories
-* Featured Products
-* Product Details Page
-* Shopping Cart
-* About Page
-* Contact Page
-* Smooth Navigation
+- Home Page
+- Products Page
+- Product Details Page
+- Cart Page
+- About Page
+- Contact Page
 
-## Technologies Used
+## Tech Stack
 
-* React
-* Vite
-* React Router DOM
-* JavaScript
-* CSS
+- React
+- Vite
+- React Router DOM
+- CSS
 
 ## Screenshots
 
-### Homepage
+---
+
+# Homepage
+
+Modern landing page featuring:
+- Hero Section
+- Categories Section
+- Featured Products
+- Call-to-Action Sections
 
 ![Homepage 1](Screenshots/homepage/1homepage.png)
 
@@ -38,13 +38,21 @@ ElectraX is a modern electronics e-commerce website featuring gaming laptops, ke
 
 ![Homepage 4](Screenshots/homepage/4homepage.png)
 
-### Products Page
+---
+
+# Products Page
+
+Displays all products with category-based browsing and product navigation.
 
 ![Products 1](Screenshots/products-page/1product.png)
 
 ![Products 2](Screenshots/products-page/2product.png)
 
-### About Page
+---
+
+# About Page
+
+Provides information about ElectraX and the brand vision.
 
 ![About 1](Screenshots/about-page/1about.png)
 
@@ -52,18 +60,20 @@ ElectraX is a modern electronics e-commerce website featuring gaming laptops, ke
 
 ![About 3](Screenshots/about-page/3about.png)
 
-### Contact Page
+---
+
+# Contact Page
+
+Allows users to view contact information and send inquiries.
 
 ![Contact](Screenshots/contact-page/1contact.png)
 
-### Cart Page
+---
+
+# Cart Page
+
+Displays selected products and order summary.
 
 ![Cart 1](Screenshots/cart-page/1cartpage.png)
 
 ![Cart 2](Screenshots/cart-page/2cartpage.png)
-
-## Author
-
-Rudra Sahani
-
-Diploma Engineering Student
