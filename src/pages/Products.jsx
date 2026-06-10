@@ -32,18 +32,12 @@ function Products() {
     ? categoryLabels[category] || "Products"
     : "All Products";
 
-    useEffect(() => {
-  if (location.state?.scrollToProducts) {
-    setTimeout(() => {
-      document
-        .getElementById("products-section")
-        ?.scrollIntoView({
-          behavior: "smooth",
-          block: "start",
-        });
-    }, 100);
-  }
-}, [location]);
+   useEffect(() => {
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth",
+  });
+}, []);
   return (
     <section
       style={{
