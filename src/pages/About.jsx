@@ -1,5 +1,8 @@
 import gamingSetup from "../assets/gaming-setup.png";
 import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
+
+import  BackButton from "../components/BackButton";
 
 
 import {
@@ -8,10 +11,28 @@ import {
   FiShield,
   FiZap
 } from "react-icons/fi";
+
+
 function About() {
+  const savePagePosition = () => {
+  sessionStorage.setItem(
+    window.location.pathname,
+    window.scrollY
+  );
+};
+
+const saved = sessionStorage.getItem(
+  location.pathname
+);
   const navigate = useNavigate();
   return (
-    <>    <section
+  <motion.div
+    initial={{ opacity: 0, y: 25 }}
+    animate={{ opacity: 1, y: 0 }}
+    exit={{ opacity: 0, y: -25 }}
+    transition={{ duration: 0.45 }}
+  >  
+    <section
       style={{
         minHeight: "75vh",
         padding: "140px 80px",
@@ -22,6 +43,24 @@ function About() {
         overflow: "hidden",
       }}
     >
+      
+      <div
+  style={{
+    position: "absolute",
+    top: "140px",
+    left: "80px",
+    zIndex: 10,
+  }}
+>
+ <div
+  style={{
+    marginBottom: "40px",
+  }}
+>
+  <BackButton />
+</div>
+</div>
+    
       {/* Background Glow */}
       <div
         style={{
@@ -35,6 +74,7 @@ function About() {
           right: "-150px",
         }}
       />
+      
 
       <div
         style={{
@@ -47,6 +87,7 @@ function About() {
           bottom: "-150px",
           left: "-150px",
         }}
+        
       />
 
       
@@ -58,29 +99,11 @@ function About() {
           position: "relative",
           zIndex: 2,
         }}
+        
       >
+          
 
-        <div
-  style={{
-    width: "100%",
-    marginBottom: "40px",
-  }}
->
-  <button
-    onClick={() => navigate(-1)}
-    style={{
-      background: "transparent",
-      border: "none",
-      color: "#00F5FF",
-      cursor: "pointer",
-      fontSize: "1rem",
-      fontWeight: "600",
-      padding: 0,
-    }}
-  >
-    ← Go Back
-  </button>
-</div>
+        
         <p
           style={{
             color: "#00F5FF",
@@ -565,7 +588,7 @@ padding: "40px 80px 100px",  }}
   </div>
 </section>
 
-</>
+</motion.div>
   );
 }
 

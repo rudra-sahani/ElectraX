@@ -1,4 +1,7 @@
 import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
+import BackButton from "../components/BackButton";
+
 import {
   Mail,
   Phone,
@@ -6,11 +9,29 @@ import {
   MessageSquare,
 } from "lucide-react";
 
+
+
+
+
 function Contact() {
+  const savePagePosition = () => {
+  sessionStorage.setItem(
+    window.location.pathname,
+    window.scrollY
+  );
+};
+const saved = sessionStorage.getItem(
+  location.pathname
+);
   const navigate = useNavigate();
 
   return (
-    <>
+  <motion.div
+    initial={{ opacity: 0, y: 25 }}
+    animate={{ opacity: 1, y: 0 }}
+    exit={{ opacity: 0, y: -25 }}
+    transition={{ duration: 0.45 }}
+  >
       {/* HERO */}
       <section
         style={{
@@ -19,7 +40,7 @@ function Contact() {
           position: "relative",
         }}
       >
-        <button
+        {/* <button
           onClick={() => navigate(-1)}
           style={{
             background: "transparent",
@@ -32,7 +53,9 @@ function Contact() {
           }}
         >
           ← Go Back
-        </button>
+        </button> */}
+        <BackButton />
+
 
         <div
           style={{
@@ -244,7 +267,7 @@ function Contact() {
           </div>
         </div>
       </section>
-    </>
+    </motion.div>
   );
 }
 

@@ -1,12 +1,19 @@
 import { useState, useContext } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { products } from "../data/products";
 import { CartContext } from "../context/CartContext";
+import { motion } from "framer-motion";
+import { useEffect } from "react";
+import BackButton from "../components/BackButton";
+
 
 function ProductDetails() {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const { addToCart } = useContext(CartContext);
   const { slug } = useParams();
+
+
+
 
   const product = products.find((item) => item.slug === slug);
 
@@ -16,39 +23,65 @@ function ProductDetails() {
 
   const images = product.images;
 
-  const [selectedImage, setSelectedImage] = useState(images[0]);
+ const [selectedImage, setSelectedImage] = useState(images[0]);
+
+
+ const currentIndex = images.indexOf(selectedImage);
+
+const nextImage = () => {
+  const nextIndex =
+    (currentIndex + 1) % images.length;
+
+  setSelectedImage(images[nextIndex]);
+};
+
+const prevImage = () => {
+  const prevIndex =
+    (currentIndex - 1 + images.length) %
+    images.length;
+
+  setSelectedImage(images[prevIndex]);
+};
+
   const [quantity, setQuantity] = useState(1);
   const [added, setAdded] = useState(false);
 
+  
+
+
   return (
-    <section
+     <motion.div
+    initial={{
+      opacity: 0,
+      y: 20,
+    }}
+    animate={{
+      opacity: 1,
+      y: 0,
+    }}
+    exit={{
+      opacity: 0,
+      y: -20,
+    }}
+    transition={{
+  duration: 0.5,
+  ease: "easeOut",
+}}
+  >
+    
+    <section 
       style={{
         padding: "120px 80px 80px 80px",
         minHeight: "100vh",
       }}
     >
-      <button
-onClick={() => navigate(-1)}        style={{
-  position: "fixed",
-  top: "105px",
-  left: "40px",
-  zIndex: "999",
-
-  padding: "12px 20px",
-
-  background: "rgba(15,23,42,0.75)",
-  backdropFilter: "blur(12px)",
-
-  border: "1px solid rgba(255,255,255,0.08)",
-  borderRadius: "999px",
-
-  color: "#00F5FF",
-  cursor: "pointer",
-  fontSize: "0.95rem",
-}}
-      >
-        ← Continue Shopping
-      </button>
+     <div
+  style={{
+    marginBottom: "40px",
+  }}
+>
+  <BackButton />
+</div>
 
       <div
         style={{
@@ -62,6 +95,8 @@ onClick={() => navigate(-1)}        style={{
         <div>
           <div
             style={{
+              position: "relative",
+              
               background: "rgba(255,255,255,0.03)",
               border: "1px solid rgba(255,255,255,0.08)",
               borderRadius: "25px",
@@ -70,18 +105,84 @@ onClick={() => navigate(-1)}        style={{
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
+              
             }}
           >
-            <img
-              src={selectedImage}
-              alt=""
-              style={{
-                width: "100%",
-                height: "100%",
-                objectFit: "contain",
-                display: "block",
-              }}
-            />
+            <button
+  onClick={prevImage}
+  style={{
+    position: "absolute",
+    left: "20px",
+    zIndex: "10",
+
+    width: "45px",
+    height: "45px",
+
+    borderRadius: "50%",
+    border: "none",
+
+    background: "rgba(15,23,42,0.8)",
+    color: "#fff",
+
+    cursor: "pointer",
+    fontSize: "1rem",
+    opacity: 1,
+transition: "all 0.3s ease"
+  }}
+>
+  ←
+</button>
+           <motion.img
+  key={selectedImage}
+  src={selectedImage}
+  alt=""
+
+  initial={{
+    opacity: 0,
+    scale: 0.96,
+  }}
+
+  animate={{
+    opacity: 1,
+    scale: 1,
+  }}
+
+  transition={{
+    duration: 0.25,
+  }}
+
+  style={{
+    width: "100%",
+    height: "100%",
+    objectFit: "contain",
+    display: "block",
+    
+  }}
+/>
+<button
+  onClick={nextImage}
+  style={{
+    position: "absolute",
+    right: "20px",
+    zIndex: "10",
+
+    width: "42px",
+    height: "42px",
+
+    borderRadius: "50%",
+    border: "none",
+
+    background: "rgba(15,23,42,0.8)",
+    color: "#fff",
+
+    cursor: "pointer",
+    fontSize: "1rem",
+    opacity: 1,
+transition: "all 0.3s ease"
+  }}
+>
+  →
+</button>
           </div>
 
           <div
@@ -96,18 +197,22 @@ onClick={() => navigate(-1)}        style={{
               <img
                 key={index}
                 src={img}
+        onMouseEnter={() => {
+  setSelectedImage(img);
+}}
+
                 alt=""
-                onClick={() => setSelectedImage(img)}
+               
                 style={{
                   width: "90px",
                   height: "90px",
                   objectFit: "cover",
                   borderRadius: "12px",
                   cursor: "pointer",
-                  border:
-                    selectedImage === img
-                      ? "2px solid #00F5FF"
-                      : "1px solid rgba(255,255,255,0.1)",
+                 border:
+  selectedImage === img
+    ? "2px solid #00F5FF"
+    : "1px solid rgba(255,255,255,0.1)",
                 }}
               />
             ))}
@@ -283,6 +388,7 @@ onClick={() => navigate(-1)}        style={{
         </div>
       </div>
     </section>
+    </motion.div>
   );
 }
 

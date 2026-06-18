@@ -1,11 +1,13 @@
 import { motion, animate } from "framer-motion";
 import { useEffect, useState } from "react";
 import gamingSetup from "../assets/gaming-setup.png";
+import { useRef } from "react";
 
 function Hero() {
   const [customers, setCustomers] = useState(0);
 const [products, setProducts] = useState(0);
 const [brands, setBrands] = useState(0);
+const buttonRef = useRef(null);
 
 useEffect(() => {
   animate(0, 20, {
@@ -41,7 +43,7 @@ useEffect(() => {
         alignItems: "center",
         justifyContent: "space-between",
        padding: "95px 80px 0 80px", 
-       paddingTop: "70px",
+      //  paddingTop: "70px",
         overflow: "hidden",
 
 //         background:
@@ -184,6 +186,7 @@ built for speed, power, and next-generation performance.
   }}
 >
          <button
+  ref={buttonRef}
   style={{
 padding: "18px 38px",    borderRadius: "30px",
     border: "none",
@@ -194,18 +197,43 @@ padding: "18px 38px",    borderRadius: "30px",
 boxShadow:
   "0 0 20px rgba(0,245,255,0.5), 0 0 50px rgba(0,245,255,0.2)",    transition: "all 0.3s ease",
   }}
+  onMouseMove={(e) => {
+  const button = buttonRef.current;
 
-  onMouseEnter={(e) => {
-    e.target.style.transform = "scale(1.05)";
-    e.target.style.boxShadow =
-      "0 0 40px rgba(0,245,255,0.9)";
-  }}
+  const rect = button.getBoundingClientRect();
 
-  onMouseLeave={(e) => {
-    e.target.style.transform = "scale(1)";
-    e.target.style.boxShadow =
-      "0 0 25px rgba(0,245,255,0.4)";
-  }}
+  const x =
+    e.clientX - rect.left - rect.width / 2;
+
+  const y =
+    e.clientY - rect.top - rect.height / 2;
+
+  button.style.transform =
+    `translate(${x * 0.08}px, ${y * 0.08}px) scale(1.05)`;
+
+  button.style.boxShadow =
+    "0 0 40px rgba(0,245,255,0.9)";
+}}
+
+onMouseLeave={(e) => {
+  e.currentTarget.style.transform =
+    "translate(0px,0px) scale(1)";
+
+  e.currentTarget.style.boxShadow =
+    "0 0 25px rgba(0,245,255,0.4)";
+}}
+
+  // onMouseEnter={(e) => {
+  //   e.target.style.transform = "scale(1.05)";
+  //   e.target.style.boxShadow =
+  //     "0 0 40px rgba(0,245,255,0.9)";
+  // }}
+
+  // onMouseLeave={(e) => {
+  //   e.target.style.transform = "scale(1)";
+  //   e.target.style.boxShadow =
+  //     "0 0 25px rgba(0,245,255,0.4)";
+  // }}
   onClick={() => {
     document
       .getElementById("featured-products")
@@ -230,15 +258,15 @@ fontSize: "1rem",
 transition: "all 0.3s ease",
             }}
             onMouseEnter={(e) => {
-  e.target.style.borderColor = "#8B5CF6";
-  e.target.style.boxShadow =
+  e.currentTarget.style.borderColor = "#8B5CF6";
+  e.currentTarget.style.boxShadow =
     "0 0 20px rgba(139,92,246,0.4)";
 }}
 
 onMouseLeave={(e) => {
-  e.target.style.borderColor =
+  e.currentTarget.style.borderColor =
     "rgba(255,255,255,0.2)";
-  e.target.style.boxShadow = "none";
+  e.currentTarget.style.boxShadow = "none";
 }}
 
  onClick={() => {

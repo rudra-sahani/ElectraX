@@ -7,14 +7,20 @@ import { products } from "../data/products";
 function FeaturedProducts() {
   const { addToCart } = useContext(CartContext);
   const [addedProduct, setAddedProduct] = useState(null);
+const badges = [
+  "BEST SELLER",
+  "TOP RATED",
+  "EDITOR'S PICK",
+];
 
   return (
     <section
-      id="featured-products"
-      style={{
-        padding: "70px 80px 120px 80px",
-      }}
-    >
+  id="featured-products"
+  style={{
+    padding: "140px 80px 120px 80px",
+    scrollMarginTop: "100px",
+  }}
+>
       <p
         style={{
           textAlign: "center",
@@ -33,7 +39,7 @@ function FeaturedProducts() {
           marginBottom: "20px",
         }}
       >
-        Featured Products
+        Best Sellers
       </h2>
 
       <p
@@ -43,7 +49,7 @@ function FeaturedProducts() {
           marginBottom: "60px",
         }}
       >
-        Explore our most popular gaming essentials.
+       Handpicked products trusted by thousands of gamers.
       </p>
 
       <div
@@ -53,7 +59,7 @@ function FeaturedProducts() {
           gap: "30px",
         }}
       >
-        {products.map((product, index) => (
+        {products.slice(0, 3).map((product, index) => (
           <Link
             key={product.slug}
             to={`/product/${product.slug}`}
@@ -79,10 +85,14 @@ function FeaturedProducts() {
                 delay: index * 0.15,
               }}
               whileHover={{
-                y: -10,
-                scale: 1.03,
+                 y: -12,
+                scale: 1.04,
+                  rotateX: 4,
                 boxShadow: "0 0 35px rgba(139,92,246,0.25)",
               }}
+              whileTap={{
+  scale: 0.96,
+}}
               style={{
                 background: "rgba(255,255,255,0.03)",
                 border: "1px solid rgba(255,255,255,0.08)",
@@ -120,6 +130,33 @@ function FeaturedProducts() {
                   padding: "25px",
                 }}
               >
+                <span
+  style={{
+    display: "inline-block",
+
+    padding: "6px 12px",
+
+    borderRadius: "20px",
+
+    background:
+      "rgba(0,245,255,0.08)",
+
+    border:
+      "1px solid rgba(0,245,255,0.15)",
+
+    color: "#00F5FF",
+
+    fontSize: "0.75rem",
+
+    fontWeight: "700",
+
+    letterSpacing: "1px",
+
+    marginBottom: "14px",
+  }}
+>
+  {badges[index]}
+</span>
                 <h3
                   style={{
                     marginBottom: "10px",
@@ -127,6 +164,16 @@ function FeaturedProducts() {
                 >
                   {product.name}
                 </h3>
+
+                <p
+  style={{
+    color: "#FBBF24",
+    marginBottom: "10px",
+    fontSize: "0.95rem",
+  }}
+>
+  ★ {product.rating} ({product.reviews} Reviews)
+</p>
 
                 <p
                   style={{

@@ -32,12 +32,13 @@ function Categories() {
   ];
 
   return (
-    <section
-      id="categories"
-      style={{
-        padding: "120px 80px",
-      }}
-    >
+ <section
+  id="categories"
+  style={{
+    padding: "70px 80px",
+    scrollMarginTop: "100px",
+  }}
+>
       <h2
         style={{
           textAlign: "center",

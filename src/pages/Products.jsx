@@ -1,19 +1,21 @@
 import {
   Link,
   useSearchParams,
-  useLocation,
-} from "react-router-dom";
+  } from "react-router-dom";
 
 import { products } from "../data/products";
+import { motion } from "framer-motion";
+import BackButton from "../components/BackButton";
 
-import { useEffect } from "react";
+
 
 function Products() {
+
   
   const [searchParams] = useSearchParams();
-  const location = useLocation();
    
   const category = searchParams.get("category");
+
 
   const categoryLabels = {
     laptops: "Laptops",
@@ -32,19 +34,32 @@ function Products() {
     ? categoryLabels[category] || "Products"
     : "All Products";
 
-   useEffect(() => {
-  window.scrollTo({
-    top: 0,
-    behavior: "smooth",
-  });
-}, []);
+
+// const savePagePosition = () => {
+//   sessionStorage.setItem(
+//     window.location.pathname,
+//     window.scrollY
+//   );
+// };
+
+const saved = sessionStorage.getItem(
+  location.pathname
+);
   return (
+ <motion.div
+  initial={{ opacity: 0 }}
+  animate={{ opacity: 1 }}
+  exit={{ opacity: 0 }}
+  transition={{ duration: 0.35 }}
+>
+    
     <section
       style={{
         padding: "120px 80px",
         minHeight: "100vh",
       }}
     >
+        <BackButton />
       <h1
         style={{
           fontSize: "3.5rem",
@@ -67,26 +82,7 @@ function Products() {
           : "Explore the complete ElectraX collection."}
       </p>
 
-    <div
-  style={{
-    textAlign: "center",
-    marginBottom: "45px",
-  }}
->
-  <button
-    onClick={() => window.history.back()}
-    style={{
-      background: "transparent",
-      border: "none",
-      color: "#00F5FF",
-      fontWeight: "600",
-      cursor: "pointer",
-      fontSize: "1rem",
-    }}
-  >
-    ← Go Back
-  </button>
-</div>
+    
 
       {filteredProducts.length === 0 ? (
         <div
@@ -111,13 +107,11 @@ function Products() {
         >
           {filteredProducts.map((product) => (
             <Link
-              key={product.slug}
-              to={`/product/${product.slug}`}
-              style={{
-                textDecoration: "none",
-                color: "inherit",
-              }}
-            >
+  key={product.slug}
+  to={`/product/${product.slug}`}
+  
+>
+  
               <div
                 style={{
                   background:
@@ -268,6 +262,7 @@ function Products() {
   </Link>
 </div>
     </section>
+    </motion.div>
   );
 }
 

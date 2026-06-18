@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { CartContext } from "../context/CartContext";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import  BackButton from "../components/BackButton";
 
 function Cart() {
     const navigate = useNavigate();
@@ -36,8 +37,23 @@ function Cart() {
   const totalDiscount = mrpDiscount + couponDiscount;
 
   const finalAmount = mrp + totalFees - totalDiscount;
+const savePagePosition = () => {
+  sessionStorage.setItem(
+    window.location.pathname,
+    window.scrollY
+  );
+};
 
+const saved = sessionStorage.getItem(
+  location.pathname
+);
   return (
+  <motion.div
+    initial={{ opacity: 0, y: 25 }}
+    animate={{ opacity: 1, y: 0 }}
+    exit={{ opacity: 0, y: -25 }}
+    transition={{ duration: 0.45 }}
+  >
     <section
       style={{
         padding: "120px 80px",
@@ -45,21 +61,13 @@ function Cart() {
       }}
     >
 
-          <button
-      onClick={() =>
-        navigate("/products")
-      }
-      style={{
-        background: "transparent",
-        border: "none",
-        color: "#00F5FF",
-        cursor: "pointer",
-        fontSize: "1rem",
-        marginBottom: "20px",
-      }}
-    >
-      ← Continue Shopping
-    </button>
+         <div
+  style={{
+    marginBottom: "40px",
+  }}
+>
+  <BackButton />
+</div>
       <h1
         style={{
           fontSize: "3rem",
@@ -443,40 +451,53 @@ function Cart() {
         </div>
       )}
 
-      <button
-  style={{
-    marginTop: "35px",
-    width: "100%",
-    padding: "18px",
-    border: "none",
-    borderRadius: "14px",
-    cursor: "pointer",
-    fontSize: "1.05rem",
-    fontWeight: "700",
-    color: "#fff",
-    background:
-      "linear-gradient(90deg,#00F5FF,#8B5CF6)",
-    boxShadow:
-      "0 0 25px rgba(0,245,255,0.25)",
-    transition: "all 0.3s ease",
-  }}
-  onMouseEnter={(e) => {
-    e.currentTarget.style.transform =
-      "translateY(-3px)";
-    e.currentTarget.style.boxShadow =
-      "0 0 35px rgba(0,245,255,0.4)";
-  }}
-  onMouseLeave={(e) => {
-    e.currentTarget.style.transform =
-      "translateY(0)";
-    e.currentTarget.style.boxShadow =
-      "0 0 25px rgba(0,245,255,0.25)";
-  }}
-  onClick={() => alert("Checkout coming soon")}
->
-  Place Order
-</button>
+      {cartItems.length > 0 ? (
+  <button
+    style={{
+      marginTop: "35px",
+      width: "100%",
+      padding: "18px",
+      border: "none",
+      borderRadius: "14px",
+      cursor: "pointer",
+      fontSize: "1.05rem",
+      fontWeight: "700",
+      color: "#fff",
+      background:
+        "linear-gradient(90deg,#00F5FF,#8B5CF6)",
+      boxShadow:
+        "0 0 25px rgba(0,245,255,0.25)",
+      transition: "all 0.3s ease",
+    }}
+    onClick={() =>
+      alert("Checkout coming soon")
+    }
+  >
+    Place Order
+  </button>
+) : (
+  <Link to="/products">
+    <button
+      style={{
+        marginTop: "35px",
+        width: "100%",
+        padding: "18px",
+        border: "none",
+        borderRadius: "14px",
+        cursor: "pointer",
+        fontSize: "1.05rem",
+        fontWeight: "700",
+        color: "#fff",
+        background:
+          "linear-gradient(90deg,#00F5FF,#8B5CF6)",
+      }}
+    >
+      Browse Products
+    </button>
+  </Link>
+)}
     </section>
+    </motion.div>
   );
 }
 
