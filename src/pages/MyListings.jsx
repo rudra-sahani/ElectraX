@@ -41,6 +41,8 @@ function MyListings() {
     }
   }
 
+  
+
   async function deleteProduct(id) {
     const confirmDelete = window.confirm(
       "Delete this product?"
@@ -62,6 +64,32 @@ function MyListings() {
       prev.filter((item) => item.id !== id)
     );
   }
+
+  async function deleteProduct(id) {
+  const confirmDelete = window.confirm(
+    "Delete this product?"
+  );
+
+  if (!confirmDelete) return;
+
+  const { error } = await supabase
+    .from("electrax_products")
+    .delete()
+    .eq("id", id);
+
+  console.log("DELETE ERROR:", error);
+
+  if (error) {
+    alert(error.message);
+    return;
+  }
+
+  alert("Deleted Successfully");
+
+  setProducts((prev) =>
+    prev.filter((item) => item.id !== id)
+  );
+}
 
   if (loading) {
     return (
@@ -131,6 +159,7 @@ function MyListings() {
                   "1px solid rgba(255,255,255,0.08)",
                 borderRadius: "25px",
                 overflow: "hidden",
+                
               }}
             >
               <div
@@ -150,6 +179,12 @@ function MyListings() {
                     maxWidth: "100%",
                     maxHeight: "100%",
                     objectFit: "contain",
+                   
+  width: "100%",
+  height: "250px",
+  objectFit: "cover",
+  borderRadius: "15px",
+
                   }}
                 />
               </div>
